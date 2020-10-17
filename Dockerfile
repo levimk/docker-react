@@ -14,7 +14,7 @@ RUN npm run build
 
 # [download and] use NGINX base image
 FROM nginx:latest
-
+EXPOSE 80
 # Copy build artefact from previous build stage to this new stage.
 COPY --from=0 /app/build /usr/share/nginx/html
 # default command from nginx base image automatically starts NGINX for us
