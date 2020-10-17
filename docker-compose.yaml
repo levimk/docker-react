@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    stdin_open: true # Fix bug in recent CRA update
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile.dev'
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules # do NOT map /app/node_modules in container
+      - .:/app # working dir (local) -> /app (container)
+  test:
+    stdin_open: true # Fix bug in recent CRA update
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile.dev'
+    # NB: no need to specify ports for testing (in this case)
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ['npm', 'run', 'test']
